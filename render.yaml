@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: bipin-history-stats
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: bipin-history-db
+          property: connectionString
+      - key: NODE_VERSION
+        value: 20.18.0
+databases:
+  - name: bipin-history-db
+    plan: free
+    databaseName: bipin_history
+    user: bipin_history_user
